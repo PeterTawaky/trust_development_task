@@ -1,16 +1,20 @@
-# trust_development_task
+# Trust Development Task
+### Task
+Implement 3 Screens :
+- Categories Screen
+- Product Details Screen
+- View Cart Screen
+### Architecture
+Clean Architecture (Domain, Data, Presentation layers)
+### State Management
+Cubit
+### Details and Requirements
+- Handle guest user flow only
+- Support English and Arabic localization
+- Implement proper error handling
+- Use dependency injection
 
-A new Flutter project.
+### Notes
+- Write clean, maintainable code
+- Follow Flutter best practices
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
