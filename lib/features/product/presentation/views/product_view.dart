@@ -33,7 +33,7 @@ class ProductView extends StatelessWidget {
 
                 SliverToBoxAdapter(
                   child: Text(
-                    state.categoryProducts[0].categoryTitleEn,
+                    state.categoryProducts[0].getLocalizedTitle(context),
                     style: context.theme.textTheme.headlineLarge,
                   ),
                 ),

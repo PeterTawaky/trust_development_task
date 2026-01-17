@@ -1,14 +1,18 @@
 import 'package:animate_to/animate_to.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trust_development_task/core/routes/app_routes.dart';
 import 'package:trust_development_task/core/utils/extensions/context_extensions.dart';
 import 'package:trust_development_task/core/utils/extensions/num_extensions.dart';
+import 'package:trust_development_task/features/cart/presentation/managers/cubit/cart_cubit.dart';
 import 'package:trust_development_task/features/product/domain/entities/product_entity.dart';
 import 'package:trust_development_task/features/product/presentation/managers/cubit/product_category_cubit.dart';
+
+import 'package:trust_development_task/locale_keys.dart';
 
 class ProductTile extends StatelessWidget {
   final ProductEntity productModel;
@@ -17,7 +21,8 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.pushNamed(AppRoutes.productDetails),
+      onTap: () =>
+          context.pushNamed(AppRoutes.productDetails, extra: productModel.id),
       child: Row(
         children: [
           CachedNetworkImage(
@@ -48,11 +53,11 @@ class ProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    productModel.nameEn,
+                    productModel.getLocalizedName(context),
                     style: context.theme.textTheme.bodyLarge,
                   ),
                   Text(
-                    productModel.price.toString(),
+                    '${productModel.price} ${LocaleKeys.le}',
                     style: context.theme.textTheme.titleLarge,
                   ),
                 ],
@@ -67,7 +72,11 @@ class ProductTile extends StatelessWidget {
               onPressed: () {
                 final controller = context.read<AnimateToController>();
                 controller.animate(controller.tag(productModel.id));
-                context.read<ProductCategoryCubit>().addToCart(productId: productModel.id,quantity: 1,);
+                context.read<ProductCategoryCubit>().addToCart(
+                  productId: productModel.id,
+                  quantity: 1,
+                );
+                context.read<CartCubit>().fetchCartTotalItems();
               },
               icon: Container(
                 padding: EdgeInsets.all(4.r(context)),
@@ -77,7 +86,7 @@ class ProductTile extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.add,
-                  
+
                   color: context.theme.scaffoldBackgroundColor,
                 ),
               ),

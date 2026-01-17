@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:trust_development_task/core/utils/extensions/context_extensions.dart';
 import 'package:trust_development_task/features/product/domain/entities/product_entity.dart';
 
 class CategoryProductEntity {
@@ -29,5 +31,8 @@ class CategoryProductEntity {
           [],
     );
   }
-}
 
+  String getLocalizedTitle(BuildContext context) {
+    return context.isArabic ? categoryTitleAr : categoryTitleEn;
+  }
+}

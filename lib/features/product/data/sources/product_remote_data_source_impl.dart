@@ -9,32 +9,10 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   ProductRemoteDataSourceImpl(this.dioConsumer);
   @override
   Future<List<CategoryProductEntity>> fetchCategoryProduct() async {
-    var response = await dioConsumer.get(
-      ApiConstants.productCategory,
-      // queryParameters: {},
-    );
+    var response = await dioConsumer.get(ApiConstants.productCategory);
     List<CategoryProductEntity> productsCategory = toModelConversion(response);
     return productsCategory;
   }
-
-  // @override
-  // Future<void> addToCart() async {
-  //   var response = await dioConsumer.post(
-  //     ApiConstants.addToCart,
-  //     data: {
-  //       "guest_id": "guest_696a48a32130f",
-  //       "items": [
-  //         {
-  //           "product_id": 100,
-  //           "quantity": 2,
-  //           "addons": [
-  //             {"id": 789, "name": "Extra Cheese", "price": "5.00"},
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   );
-  // }
 }
 
 List<CategoryProductEntity> toModelConversion(List response) {

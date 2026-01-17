@@ -9,9 +9,10 @@ import 'package:trust_development_task/features/product/domain/use_cases/fetch_c
 part 'product_category_state.dart';
 
 class ProductCategoryCubit extends Cubit<ProductCategoryState> {
-  //should be injected
   final FetchCategoryProductUseCase fetchCategoryProductUseCase;
-  ProductCategoryCubit(this.fetchCategoryProductUseCase)
+  final DioConsumer dioConsumer;
+
+  ProductCategoryCubit(this.fetchCategoryProductUseCase, this.dioConsumer)
     : super(ProductCategoryInitial());
 
   Future<void> fetchCategoryProducts() async {
@@ -33,7 +34,7 @@ class ProductCategoryCubit extends Cubit<ProductCategoryState> {
     List addons = const [],
     String guestID = "guest_696a48a32130f",
   }) async {
-    var response = await DioConsumer().post(
+    await dioConsumer.post(
       ApiConstants.addToCart,
       data: {
         "guest_id": guestID,

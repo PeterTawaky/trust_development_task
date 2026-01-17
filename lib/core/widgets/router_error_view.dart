@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:trust_development_task/locale_keys.dart';
 
 class RouterErrorView extends StatefulWidget {
   final Color? primaryColor;
   final Brightness? brightness;
 
-  const RouterErrorView({
-    Key? key,
-    this.primaryColor,
-    this.brightness,
-  }) : super(key: key);
+  const RouterErrorView({Key? key, this.primaryColor, this.brightness})
+    : super(key: key);
 
   @override
   State<RouterErrorView> createState() => _RouterErrorViewState();
@@ -47,9 +45,10 @@ class _RouterErrorViewState extends State<RouterErrorView>
       CurvedAnimation(parent: _floatController, curve: Curves.easeInOut),
     );
 
-    _rotateAnimation = Tween<double>(begin: 0, end: 2 * math.pi).animate(
-      CurvedAnimation(parent: _rotateController, curve: Curves.linear),
-    );
+    _rotateAnimation = Tween<double>(
+      begin: 0,
+      end: 2 * math.pi,
+    ).animate(CurvedAnimation(parent: _rotateController, curve: Curves.linear));
 
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
@@ -139,13 +138,10 @@ class _RouterErrorViewState extends State<RouterErrorView>
                     // Error title with gradient
                     ShaderMask(
                       shaderCallback: (bounds) => LinearGradient(
-                        colors: [
-                          primaryColor,
-                          primaryColor.withOpacity(0.6),
-                        ],
+                        colors: [primaryColor, primaryColor.withOpacity(0.6)],
                       ).createShader(bounds),
                       child: Text(
-                        'Route Not Found',
+                        LocaleKeys.routeNotFound,
                         style: TextStyle(
                           fontSize: isTablet ? 42 : 32,
                           fontWeight: FontWeight.bold,
@@ -160,7 +156,7 @@ class _RouterErrorViewState extends State<RouterErrorView>
 
                     // Description
                     Text(
-                      'Oops! The page you\'re looking for doesn\'t exist.\nLet\'s get you back on track.',
+                      LocaleKeys.oopsPageNotExist,
                       style: TextStyle(
                         fontSize: isTablet ? 18 : 16,
                         color: secondaryTextColor,
@@ -218,7 +214,7 @@ class _RouterErrorViewState extends State<RouterErrorView>
                                       ),
                                       SizedBox(width: isTablet ? 16 : 12),
                                       Text(
-                                        'Go Back',
+                                        LocaleKeys.goBack,
                                         style: TextStyle(
                                           fontSize: isTablet ? 20 : 18,
                                           fontWeight: FontWeight.w600,
@@ -271,11 +267,7 @@ class BackgroundCirclePainter extends CustomPainter {
       math.sin(rotation) * radius,
     );
 
-    canvas.drawCircle(
-      center + offset,
-      50 + (index * 20),
-      paint,
-    );
+    canvas.drawCircle(center + offset, 50 + (index * 20), paint);
   }
 
   @override
@@ -288,10 +280,7 @@ class Error404Painter extends CustomPainter {
   final Color primaryColor;
   final bool isDark;
 
-  Error404Painter({
-    required this.primaryColor,
-    required this.isDark,
-  });
+  Error404Painter({required this.primaryColor, required this.isDark});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -331,10 +320,7 @@ class Error404Painter extends CustomPainter {
       fontWeight: FontWeight.w900,
       foreground: Paint()
         ..shader = LinearGradient(
-          colors: [
-            primaryColor,
-            primaryColor.withOpacity(0.6),
-          ],
+          colors: [primaryColor, primaryColor.withOpacity(0.6)],
         ).createShader(Rect.fromLTWH(0, 0, size.width, size.height)),
     );
 
@@ -387,8 +373,16 @@ class Error404Painter extends CustomPainter {
       ..color = primaryColor.withOpacity(0.4)
       ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(Offset(size.width * 0.9, size.height * 0.75), 8, dotPaint);
-    canvas.drawCircle(Offset(size.width * 0.08, size.height * 0.5), 6, dotPaint);
+    canvas.drawCircle(
+      Offset(size.width * 0.9, size.height * 0.75),
+      8,
+      dotPaint,
+    );
+    canvas.drawCircle(
+      Offset(size.width * 0.08, size.height * 0.5),
+      6,
+      dotPaint,
+    );
   }
 
   @override

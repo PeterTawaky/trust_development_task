@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:trust_development_task/core/utils/extensions/context_extensions.dart';
+
 class ProductEntity {
   final String id;
   final String nameEn;
@@ -21,5 +24,9 @@ class ProductEntity {
           ? json['price_tax']
           : (json['price_tax'] as num).toInt(),
     );
+  }
+
+  String getLocalizedName(BuildContext context) {
+    return context.isArabic ? nameAr : nameEn;
   }
 }

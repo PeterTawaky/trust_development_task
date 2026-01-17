@@ -41,6 +41,7 @@ extension ThemeExtension on BuildContext {
   ColorScheme get colorsScheme => theme.colorScheme;
   TextTheme get textTheme => theme.textTheme;
   bool get isDark => theme.brightness == Brightness.dark;
+  bool get isArabic => Localizations.localeOf(this).languageCode == 'ar';
 }
 
 /// System UI (status/nav bars) helpers

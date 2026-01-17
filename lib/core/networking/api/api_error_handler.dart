@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'api_error_factory.dart';
 import 'api_error_model.dart';
 import 'local_status_codes.dart';
+import 'package:trust_development_task/locale_keys.dart';
 
 class ApiErrorHandler {
   static ApiErrorModel handle(dynamic e) {
@@ -19,71 +20,69 @@ class ApiErrorHandler {
           DioExceptionType.badResponse when e.response?.statusCode != null =>
             switch (e.response!.statusCode) {
               400 => ApiErrorModel(
-                message: "Something went wrong. Please try again.",
+                message: LocaleKeys.somethingWentWrong,
                 icon: Icons.error_outline,
                 statusCode: 400,
               ),
               401 => ApiErrorModel(
-                message: "Please log in to continue.",
+                message: LocaleKeys.unauthorized,
                 icon: Icons.lock_outline,
                 statusCode: 401,
               ),
               403 => ApiErrorModel(
-                message: "You don't have permission to access this.",
+                message: LocaleKeys.forbidden,
                 icon: Icons.block,
                 statusCode: 403,
               ),
               404 => ApiErrorModel(
-                message: "We couldn't find what you're looking for.",
+                message: LocaleKeys.notFound,
                 icon: Icons.search_off,
                 statusCode: 404,
               ),
               422 => ApiErrorModel(
-                message: "Please check your information and try again.",
+                message: LocaleKeys.unprocessableEntity,
                 icon: Icons.warning_amber,
                 statusCode: 422,
               ),
               429 => ApiErrorModel(
-                message: "Please wait a moment before trying again.",
+                message: LocaleKeys.tooManyRequests,
                 icon: Icons.timelapse,
                 statusCode: 429,
               ),
               500 => ApiErrorModel(
-                message: "We're having some trouble. Please try again later.",
+                message: LocaleKeys.internalServerError,
                 icon: Icons.dangerous,
                 statusCode: 500,
               ),
               502 => ApiErrorModel(
-                message:
-                    "We're experiencing technical issues. Please try again soon.",
+                message: LocaleKeys.badGateway,
                 icon: Icons.cloud_off,
                 statusCode: 502,
               ),
               503 => ApiErrorModel(
-                message:
-                    "Our service is currently unavailable. Please check back later.",
+                message: LocaleKeys.serviceUnavailable,
                 icon: Icons.engineering,
                 statusCode: 503,
               ),
               504 => ApiErrorModel(
-                message: "Request timed out. Please try again.",
+                message: LocaleKeys.gatewayTimeout,
                 icon: Icons.timer_off,
                 statusCode: 504,
               ),
               _ => ApiErrorFactory.badResponseWithoutCode,
             },
           DioExceptionType.badResponse => ApiErrorModel(
-            message: "Something went wrong. Please try again.",
+            message: LocaleKeys.somethingWentWrong,
             icon: Icons.warning,
             statusCode: LocalStatusCodes.badResponse,
           ),
           DioExceptionType.cancel => ApiErrorModel(
-            message: "Request was cancelled. Please try again.",
+            message: LocaleKeys.requestCancelled,
             icon: Icons.cancel,
             statusCode: LocalStatusCodes.cancel,
           ),
           DioExceptionType.unknown => ApiErrorModel(
-            message: "Something went wrong. Please try again later.",
+            message: LocaleKeys.somethingWentWrong,
             icon: Icons.error_outline,
             statusCode: LocalStatusCodes.unknown,
           ),

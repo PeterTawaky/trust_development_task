@@ -4,38 +4,86 @@ import 'package:trust_development_task/core/utils/extensions/context_extensions.
 import 'package:trust_development_task/core/utils/extensions/num_extensions.dart';
 
 class CartCounter extends StatefulWidget {
-  const CartCounter({super.key});
+  final int initialValue;
+  final VoidCallback? onIncrement;
+  final VoidCallback? onDecrement;
+  const CartCounter({
+    super.key,
+    this.initialValue = 1,
+    this.onIncrement,
+    this.onDecrement,
+  });
 
   @override
   State<CartCounter> createState() => _CartCounterState();
 }
 
 class _CartCounterState extends State<CartCounter> {
-  int quantity = 1;
+  late int quantity;
+  bool isUpdating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    quantity = widget.initialValue;
+  }
+
+  @override
+  void didUpdateWidget(covariant CartCounter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialValue != widget.initialValue) {
+      if (mounted) {
+        setState(() {
+          quantity = widget.initialValue;
+          isUpdating = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 7.w(context),
+      mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
-          onTap: () => setState(() {
-            //will delete by api
-          }),
+          onTap: isUpdating
+              ? null
+              : () {
+                  if (widget.onDecrement != null) {
+                    setState(() => isUpdating = true);
+                    widget.onDecrement!();
+                  }
+                },
           child: CircleAvatar(
             radius: 16.r(context),
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.grey.withOpacity(0.2),
             child: Icon(
-              CupertinoIcons.delete,
-              color: context.theme.colorScheme.primaryContainer,
+              CupertinoIcons.minus,
+              color: context.theme.colorScheme.primary,
               size: 16.sp(context),
             ),
           ),
         ),
-        Text(quantity.toString(), style: context.theme.textTheme.titleLarge),
+        SizedBox(width: 10.w(context)),
+        if (isUpdating)
+          SizedBox(
+            width: 20.w(context),
+            height: 20.h(context),
+            child: const CircularProgressIndicator(strokeWidth: 2),
+          )
+        else
+          Text(quantity.toString(), style: context.theme.textTheme.titleLarge),
+        SizedBox(width: 10.w(context)),
         GestureDetector(
-          onTap: () => setState(() {
-            quantity++;
-          }),
+          onTap: isUpdating
+              ? null
+              : () {
+                  if (widget.onIncrement != null) {
+                    setState(() => isUpdating = true);
+                    widget.onIncrement!();
+                  }
+                },
           child: CircleAvatar(
             radius: 16.r(context),
             backgroundColor: context.theme.colorScheme.primary,

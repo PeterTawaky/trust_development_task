@@ -7,10 +7,9 @@ class DioConsumer extends ApiConsumer {
   final Dio dio = Dio();
   final String baseUrl;
 
-  DioConsumer({ this.baseUrl='https://dushkaburger.com/wp-json/'}) {
-    // control the dio
+  DioConsumer({this.baseUrl = 'https://dushkaburger.com/wp-json/'}) {
     dio.options.baseUrl = baseUrl;
-    dio.interceptors.add(ApiInterceptor()); //هيتنفذ مع كل request
+    dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
@@ -18,9 +17,7 @@ class DioConsumer extends ApiConsumer {
         responseBody: false,
         responseHeader: true,
         error: true,
-        // compact: true,
         maxWidth: 90,
-        // enabled: kDebugMode,
         filter: (options, args) {
           // don't print requests with uris containing '/posts'
           if (options.path.contains('/posts')) {
@@ -46,7 +43,7 @@ class DioConsumer extends ApiConsumer {
       data: isFormData ? FormData.fromMap(data) : data,
     );
 
-    return response.data; //json data
+    return response.data;
   }
 
   @override
@@ -62,7 +59,7 @@ class DioConsumer extends ApiConsumer {
       queryParameters: queryParameters,
     );
 
-    return response.data; //json data
+    return response.data;
   }
 
   @override
@@ -78,7 +75,7 @@ class DioConsumer extends ApiConsumer {
       queryParameters: queryParameters,
     );
 
-    return response.data; //json data
+    return response.data;
   }
 
   @override
@@ -94,7 +91,7 @@ class DioConsumer extends ApiConsumer {
       queryParameters: queryParameters,
     );
 
-    return response.data; //json data
+    return response.data;
   }
 
   @override
@@ -110,6 +107,6 @@ class DioConsumer extends ApiConsumer {
       queryParameters: queryParameters,
     );
 
-    return resopnse.data; //json data
+    return resopnse.data;
   }
 }

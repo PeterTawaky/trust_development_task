@@ -2,5 +2,4 @@ import 'package:trust_development_task/features/product/domain/entities/category
 
 abstract class ProductRemoteDataSource {
   Future<List<CategoryProductEntity>> fetchCategoryProduct();
-  // Future<void> addToCart();
 }
